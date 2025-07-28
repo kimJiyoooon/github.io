@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>McOrder Kiosk</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+    }
+    header img {
+      width: 100%;
+      display: block;
+    }
+    #timer {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: rgba(255,255,255,0.8);
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    main {
+      padding-top: 150px;
+      padding-bottom: 300px;
+    }
+    section {
+      padding: 20px;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .item {
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .item:hover {
+      background-color: #f8f8f8;
+    }
+    .item img {
+      width: 100px;
+      height: 100px;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-top: 2px solid #aaa;
+      z-index: 20;
+    }
+    #order-list {
+      height: 200px;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .order-item {
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background: #eee;
+    }
+    .order-item span {
+      margin: 0 5px;
+    }
+    .btn-group {
+      display: flex;
+    }
+    .btn {
+      flex: 1;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .cancel {
+      background: #b00000;
+      color: white;
+    }
+    .done {
+      background: #007a00;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="pic1.png" alt="McDonald's Promo Header">
+    <div id="timer">10초 남음</div>
+  </header>
+
+  <main>
+    <section id="hamburgers">
+      <h2>🍔 햄버거</h2>
+      <div class="menu-grid">
+        <div class="item" onclick="addItem('빅맥', 5)">빅맥<br>₩5.00</div>
+        <div class="item" onclick="addItem('불고기버거', 5)">불고기버거<br>₩5.00</div>
+        <div class="item" onclick="addItem('싸이버거', 5)">싸이버거<br>₩5.00</div>
+        <div class="item" onclick="addItem('치킨버거', 5)">치킨버거<br>₩5.00</div>
+        <div class="item" onclick="addItem('치즈버거', 5)">치즈버거<br>₩5.00</div>
+        <div class="item" onclick="addItem('한우버거', 8)">한우버거<br>₩8.00</div>
+      </div>
+    </section>
+
+    <section id="drinks">
+      <h2>🥤 음료</h2>
+      <div class="menu-grid">
+        <div class="item" onclick="addItem('콜라', 2)">콜라<br>₩2.00</div>
+        <div class="item" onclick="addItem('사이다', 2)">사이다<br>₩2.00</div>
+        <div class="item" onclick="addItem('제로콜라', 2)">제로콜라<br>₩2.00</div>
+        <div class="item" onclick="addItem('제로사이다', 2)">제로사이다<br>₩2.00</div>
+        <div class="item" onclick="addItem('환타', 2)">환타<br>₩2.00</div>
+        <div class="item" onclick="addItem('웰치스', 2)">웰치스<br>₩2.00</div>
+      </div>
+    </section>
+
+    <section id="sides">
+      <h2>🍟 사이드</h2>
+      <div class="menu-grid">
+        <div class="item" onclick="addItem('감자튀김S', 3)">감자튀김S<br>₩3.00</div>
+        <div class="item" onclick="addItem('감자튀김L', 4)">감자튀김L<br>₩4.00</div>
+        <div class="item" onclick="addItem('아이스크림', 2)">아이스크림<br>₩2.00</div>
+        <div class="item" onclick="addItem('맥너겟', 4)">맥너겟<br>₩4.00</div>
+        <div class="item" onclick="addItem('맥윙', 5)">맥윙<br>₩5.00</div>
+        <div class="item" onclick="addItem('양념감자', 4)">양념감자<br>₩4.00</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div id="order-list"></div>
+    <div class="btn-group">
+      <div class="btn cancel" onclick="clearOrder()">Cancel Order</div>
+      <div class="btn done" onclick="submitOrder()">Done</div>
+    </div>
+  </footer>
+
+  <script>
+    let orderTimeout = null;
+    let remainingSeconds = 60;
+    let timerInterval = null;
+
+    function updateTimerDisplay() {
+      const timerEl = document.getElementById('timer');
+      timerEl.textContent = `${remainingSeconds}초 남음`;
+    }
+
+    function startOrderTimeout() {
+      if (orderTimeout) clearTimeout(orderTimeout);
+      if (timerInterval) clearInterval(timerInterval);
+
+      remainingSeconds = 10;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateTimerDisplay();
+        if (remainingSeconds <= 0) clearInterval(timerInterval);
+      }, 1000);
+
+      orderTimeout = setTimeout(() => {
+        alert("타임 아웃!");
+        clearOrder();
+      }, 10000);
+    }
+
+    function getOrder() {
+      const data = localStorage.getItem('order');
+      return data ? JSON.parse(data) : {};
+    }
+
+    function saveOrder(order) {
+      localStorage.setItem('order', JSON.stringify(order));
+      startOrderTimeout();
+    }
+
+    function clearOrder() {
+      localStorage.removeItem('order');
+      renderOrder();
+      clearTimeout(orderTimeout);
+      clearInterval(timerInterval);
+      document.getElementById('timer').textContent = '0초 남음';
+    }
+
+    function renderOrder() {
+      const order = getOrder();
+      const list = document.getElementById('order-list');
+      list.innerHTML = '';
+      for (const [item, count] of Object.entries(order)) {
+        if (count > 0) {
+          const div = document.createElement('div');
+          div.className = 'order-item';
+          div.innerHTML = `${item} <button onclick="changeQty('${item}', -1)">-</button>
+            <span>${count}</span>
+            <button onclick="changeQty('${item}', 1)">+</button>`;
+          list.appendChild(div);
+        }
+      }
+    }
+
+    function addItem(name, price) {
+      const order = getOrder();
+      order[name] = (order[name] || 0) + 1;
+      saveOrder(order);
+      renderOrder();
+    }
+
+    function changeQty(name, diff) {
+      const order = getOrder();
+      order[name] = (order[name] || 0) + diff;
+      if (order[name] <= 0) delete order[name];
+      saveOrder(order);
+      renderOrder();
+    }
+
+    function submitOrder() {
+      alert('주문이 완료되었습니다!');
+      clearOrder();
+    }
+
+    renderOrder();
+    startOrderTimeout();
+  </script>
+</body>
+</html>
