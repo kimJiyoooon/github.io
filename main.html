@@ -117,7 +117,7 @@
     <section id="hamburgers">
       <h2>햄버거</h2>
       <div class="menu-grid">
-        <div class="item" onclick="addItem('빅맥', 5)">
+        <div class="item" onclick="addItem('빅낵', 5)">
           <div>
             <svg width="205" height="218" viewBox="0 0 205 218" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <path d="M0 0H205V218H0V0Z" fill="url(#pattern0_1_69)"/>
@@ -129,8 +129,8 @@
 </defs>
 </svg>
           </div>
-          빅맥<br>₩5.00</div>
-        <div class="item" onclick="addItem('맥더블버거', 5)">
+          빅낵<br>₩5.00</div>
+        <div class="item" onclick="addItem('낵더블버거', 5)">
           <div>
             <svg width="205" height="218" viewBox="0 0 205 218" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="205" height="218" fill="url(#pattern0_1_36)"/>
@@ -142,7 +142,7 @@
 </defs>
 </svg>
           </div>
-          맥더블버거<br>₩5.00</div>
+          낵더블버거<br>₩5.00</div>
         <div class="item" onclick="addItem('더블치즈버거', 5)">
           <div><svg width="206" height="197" viewBox="0 0 206 197" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="206" height="197" fill="url(#pattern0_1_32)"/>
@@ -168,7 +168,7 @@
 </svg>
           </div>
           치즈베이컨버거<br>₩5.00</div>
-        <div class="item" onclick="addItem('더블빅맥버거', 5)">
+        <div class="item" onclick="addItem('더블빅낵버거', 5)">
           <div><svg width="205" height="218" viewBox="0 0 205 218" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="205" height="218" fill="url(#pattern0_1_28)"/>
 <defs>
@@ -179,7 +179,7 @@
 </defs>
 </svg>
 </div>
-          더블빅맥버거<br>₩5.00</div>
+          더블빅낵버거<br>₩5.00</div>
         <div class="item" onclick="addItem('치즈버거', 8)">
           <div><svg width="205" height="208" viewBox="0 0 205 208" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="205" height="208" fill="url(#pattern0_1_38)"/>
@@ -291,16 +291,16 @@
             <img src="icecream.png">
           </div>
           아이스크림<br>₩2.00</div>
-        <div class="item" onclick="addItem('맥너겟', 4)">
+        <div class="item" onclick="addItem('낵너겟', 4)">
           <div>
           <img src="mcnugget.png">  
           </div>
-          맥너겟<br>₩4.00</div>
-        <div class="item" onclick="addItem('맥윙', 5)">
+          낵너겟<br>₩4.00</div>
+        <div class="item" onclick="addItem('낵윙', 5)">
           <div>
             <img src="mcwing.png">
           </div>
-          맥윙<br>₩5.00</div>
+          낵윙<br>₩5.00</div>
         <div class="item" onclick="addItem('치즈스틱', 4)">
           <div>
             <img src="cheese.png">
@@ -433,10 +433,14 @@
       clearOrder();
     }
 
+    function calcRange(num) {
+      return Math.floor(Math.random() * 2) + (num - 1); // 0 <= Math.random() < 1
+    }
+
     function suggestRandomMenu() {
-  const burgers = ['빅맥', '맥더블버거', '더블치즈버거', '치즈베이컨버거', '더블빅맥버거', '치즈버거'];
+  const burgers = ['빅낵', '낵더블버거', '더블치즈버거', '치즈베이컨버거', '더블빅낵버거', '치즈버거'];
   const drinks = ['콜라', '사이다', '제로콜라', '제로사이다', '환타', '닥터페퍼'];
-  const sides = ['감자튀김S', '감자튀김L', '아이스크림', '맥너겟', '맥윙', '치즈스틱'];
+  const sides = ['감자튀김S', '감자튀김L', '아이스크림', '낵너겟', '낵윙', '치즈스틱'];
 
   const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -444,9 +448,9 @@
   const randomDrink = pick(drinks);
   const randomSide = pick(sides);
 
-  const randomNumBurger = Math.floor(Math.random() * maxNum) + 1;  // 0 <= Math.random() < 1
-        const randomNumDrink = Math.floor(Math.random() * maxNum) + 1;
-        const randomNumSide = Math.floor(Math.random() * maxNum) + 1;
+  const randomNumBurger = calcRange(maxNum);
+        const randomNumDrink = calcRange(maxNum);
+        const randomNumSide = calcRange(maxNum);
       
   document.getElementById('random-menu').innerHTML = `
     <strong>${randomBurger} X ${randomNumBurger}</strong><br>
