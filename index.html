@@ -109,7 +109,9 @@
 </head>
 <body>
   <header>
-    <img src="pic.png" alt="McDonald's Promo Header">
+<a href="index.html">
+  <img src="pic1.png" alt="McDonald's Promo Header" style="cursor: pointer;">
+</a>
     <div id="timer">10초 남음</div>
   </header>
 
@@ -325,7 +327,7 @@
 
   <script>
     let orderTimeout = null;
-    let remainingSeconds = 60;
+    let remainingSeconds = 10;
     let maxNum = 4;
     let timerInterval = null;
 
@@ -338,7 +340,6 @@
       if (orderTimeout) clearTimeout(orderTimeout);
       if (timerInterval) clearInterval(timerInterval);
 
-      remainingSeconds = 10;
       updateTimerDisplay();
 
       timerInterval = setInterval(() => {
@@ -350,7 +351,7 @@
       orderTimeout = setTimeout(() => {
         alert("타임 아웃!");
         clearOrder();
-      }, 10000);
+      }, remainingSeconds*1000);
     }
 
     function getOrder() {
