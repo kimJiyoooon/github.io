@@ -335,6 +335,8 @@
     const level = params.get('level');
 
     function setLevel() {
+      console.log(level);
+      
       switch (level){
         case "easy":
           remainingSeconds = 30;
@@ -449,8 +451,7 @@
     🍟 <strong>${randomSide} X ${randomNumSide}</strong>
   `;
 }
-
-
+    setLevel();
     renderOrder();
     startOrderTimeout();
     suggestRandomMenu();
