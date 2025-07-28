@@ -326,6 +326,7 @@
   <script>
     let orderTimeout = null;
     let remainingSeconds = 60;
+    let maxNum = 4;
     let timerInterval = null;
 
     function updateTimerDisplay() {
@@ -418,9 +419,9 @@
   const randomSide = pick(sides);
 
   document.getElementById('random-menu').innerHTML = `
-    🍔 <strong>${randomBurger}</strong><br>
-    🥤 <strong>${randomDrink}</strong><br>
-    🍟 <strong>${randomSide}</strong>
+    🍔 <strong>${randomBurger} X {Math.floor(Math.random() * maxNum)}</strong><br>
+    🥤 <strong>${randomDrink} X {Math.floor(Math.random() * maxNum)}</strong><br>
+    🍟 <strong>${randomSide} X {Math.floor(Math.random() * maxNum)}</strong>
   `;
 }
 
