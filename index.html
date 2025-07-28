@@ -418,9 +418,9 @@
   const randomDrink = pick(drinks);
   const randomSide = pick(sides);
 
-  const randomNumBurger = Math.floor(Math.random() * maxNum);
-        const randomNumDrink = Math.floor(Math.random() * maxNum);
-        const randomNumSide = Math.floor(Math.random() * maxNum);
+  const randomNumBurger = Math.floor(Math.random() * (maxNum - 1)) + 1;
+        const randomNumDrink = Math.floor(Math.random() * (maxNum - 1)) + 1;
+        const randomNumSide = Math.floor(Math.random() * (maxNum - 1)) + 1;
       
   document.getElementById('random-menu').innerHTML = `
     🍔 <strong>${randomBurger} X ${randomNumBurger}</strong><br>
