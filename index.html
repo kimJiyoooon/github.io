@@ -307,6 +307,12 @@
           </div>치즈스틱<br>₩4.00</div>
       </div>
     </section>
+    <div id="suggestion-box" style="position: fixed; top: 150px; right: 10px; width: 200px; background: #f1f1f1; padding: 10px; border: 1px solid #aaa; border-radius: 8px;">
+  <h3>🍽 추천 메뉴</h3>
+  <div id="random-menu">버튼을 눌러보세요!</div>
+  <button onclick="suggestRandomMenu()" style="margin-top: 10px; width: 100%;">랜덤 추천</button>
+</div>
+
   </main>
 
   <footer>
@@ -399,6 +405,25 @@
       alert('주문이 완료되었습니다!');
       clearOrder();
     }
+
+    function suggestRandomMenu() {
+  const burgers = ['빅맥', '맥더블버거', '더블치즈버거', '치즈베이컨버거', '더블빅맥버거', '치즈버거'];
+  const drinks = ['콜라', '사이다', '제로콜라', '제로사이다', '환타', '닥터페퍼'];
+  const sides = ['감자튀김S', '감자튀김L', '아이스크림', '맥너겟', '맥윙', '치즈스틱'];
+
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  const randomBurger = pick(burgers);
+  const randomDrink = pick(drinks);
+  const randomSide = pick(sides);
+
+  document.getElementById('random-menu').innerHTML = `
+    🍔 <strong>${randomBurger}</strong><br>
+    🥤 <strong>${randomDrink}</strong><br>
+    🍟 <strong>${randomSide}</strong>
+  `;
+}
+
 
     renderOrder();
     startOrderTimeout();
