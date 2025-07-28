@@ -418,10 +418,14 @@
   const randomDrink = pick(drinks);
   const randomSide = pick(sides);
 
+  const randomNumBurger = Math.floor(Math.random() * maxNum);
+        const randomNumDrink = Math.floor(Math.random() * maxNum);
+        const randomNumSide = Math.floor(Math.random() * maxNum);
+      
   document.getElementById('random-menu').innerHTML = `
-    🍔 <strong>${randomBurger} X {Math.floor(Math.random() * maxNum)}</strong><br>
-    🥤 <strong>${randomDrink} X {Math.floor(Math.random() * maxNum)}</strong><br>
-    🍟 <strong>${randomSide} X {Math.floor(Math.random() * maxNum)}</strong>
+    🍔 <strong>${randomBurger} X ${randomNumBurger}</strong><br>
+    🥤 <strong>${randomDrink} X ${randomNumDrink}</strong><br>
+    🍟 <strong>${randomSide} X ${randomNumSide}</strong>
   `;
 }
 
