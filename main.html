@@ -338,15 +338,15 @@
       switch (level){
         case "easy":
           remainingSeconds = 30;
-          maxNum = 3;
+          maxNum = 2;
           break;
         case "normal":
           remainingSeconds = 20;
-          maxNum = 4;
+          maxNum = 3;
           break;
         case "hard":
           remainingSeconds = 10;
-          maxNum = 5;
+          maxNum = 4;
           break;
       }
     }
@@ -444,9 +444,9 @@
   const randomDrink = pick(drinks);
   const randomSide = pick(sides);
 
-  const randomNumBurger = Math.floor(Math.random() * (maxNum - 1)) + 1;
-        const randomNumDrink = Math.floor(Math.random() * (maxNum - 1)) + 1;
-        const randomNumSide = Math.floor(Math.random() * (maxNum - 1)) + 1;
+  const randomNumBurger = Math.floor(Math.random() * maxNum) + 1;  // 0 <= Math.random() < 1
+        const randomNumDrink = Math.floor(Math.random() * maxNum) + 1;
+        const randomNumSide = Math.floor(Math.random() * maxNum) + 1;
       
   document.getElementById('random-menu').innerHTML = `
     <strong>${randomBurger} X ${randomNumBurger}</strong><br>
