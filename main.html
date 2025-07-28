@@ -109,15 +109,13 @@
 </head>
 <body>
   <header>
-<a href="index.html">
-  <img src="pic.png" alt="McDonald's Promo Header" style="cursor: pointer;">
-</a>
-    <div id="timer">10초 남음</div>
+<img src="pic.png" alt="McDonald's Promo Header" style="cursor: pointer;" onclick="goToIndex()">
+    <div id="timer"></div>
   </header>
 
   <main>
     <section id="hamburgers">
-      <h2>🍔 햄버거</h2>
+      <h2>햄버거</h2>
       <div class="menu-grid">
         <div class="item" onclick="addItem('빅맥', 5)">
           <div>
@@ -276,7 +274,7 @@
     </section>
 
     <section id="sides">
-      <h2>🍟 사이드</h2>
+      <h2>사이드</h2>
       <div class="menu-grid">
         <div class="item" onclick="addItem('감자튀김S', 3)">
           <div>
@@ -310,7 +308,7 @@
       </div>
     </section>
     <div id="suggestion-box" style="position: fixed; top: 210px; right: 10px; width: 200px; background: #f1f1f1; padding: 10px; border: 1px solid #aaa; border-radius: 8px;">
-  <h3>🍽 추천 메뉴</h3>
+  <h3>추천 메뉴</h3>
   <div id="random-menu">버튼을 눌러보세요!</div>
   <button onclick="suggestRandomMenu()" style="margin-top: 10px; width: 100%;">랜덤 추천</button>
 </div>
@@ -352,6 +350,11 @@
           break;
       }
     }
+
+  function goToIndex() {
+    clearOrder();
+    window.location.href = 'index.html';
+  }
 
     function updateTimerDisplay() {
       const timerEl = document.getElementById('timer');
