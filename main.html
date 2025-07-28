@@ -327,9 +327,29 @@
 
   <script>
     let orderTimeout = null;
-    let remainingSeconds = 10;
-    let maxNum = 4;
+    let remainingSeconds = 0;
+    let maxNum = 0;
     let timerInterval = null;
+
+    const params = new URLSearchParams(window.location.search);
+    const level = params.get('level');
+
+    function setLevel() {
+      switch (level){
+        case "easy":
+          remainingSeconds = 30;
+          maxNum = 3;
+          break;
+        case "normal":
+          remainingSeconds = 20;
+          maxNum = 4;
+          break;
+        case "hard":
+          remainingSeconds = 10;
+          maxNum = 5;
+          break;
+      }
+    }
 
     function updateTimerDisplay() {
       const timerEl = document.getElementById('timer');
